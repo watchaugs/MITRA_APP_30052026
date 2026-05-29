@@ -225,11 +225,11 @@ ThemeData buildMitraTheme({bool dark = true}) {
 
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStateProperty.resolveWith(
-        (s) => s.contains(WidgetState.selected) ? MC.saffron : MC.textMuted),
+              (s) => s.contains(WidgetState.selected) ? MC.saffron : MC.textMuted),
       trackColor: WidgetStateProperty.resolveWith(
-        (s) => s.contains(WidgetState.selected)
-            ? MC.saffron.withValues(alpha: 0.3)
-            : surface),
+              (s) => s.contains(WidgetState.selected)
+              ? MC.saffron.withValues(alpha: 0.3)
+              : surface),
     ),
 
     dividerTheme: const DividerThemeData(color: MC.border, thickness: 1, space: 1),
@@ -253,8 +253,8 @@ ThemeData buildDynamicTheme({
   final base = buildMitraTheme(dark: dark);
   if (primaryHex == null) return base;
 
-  final primary = _hex(primaryHex) ?? MC.saffron;
-  final secondary = _hex(secondaryHex) ?? MC.indigoLt;
+  final primary   = _hex(primaryHex) ?? MC.saffron;
+  final secondary = (secondaryHex != null ? _hex(secondaryHex) : null) ?? MC.indigoLt;
 
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(primary: primary, secondary: secondary),

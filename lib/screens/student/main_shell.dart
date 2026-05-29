@@ -9,7 +9,7 @@ import '../../widgets/mitra_widgets.dart';
 import 'home_screen.dart';
 import 'learn_screen.dart';
 import 'ar_screen.dart';
-import 'learn_screen.dart'; import '../../models/app_config.dart';
+import 'ranks_screen.dart';
 import 'profile_screen.dart';
 
 // ── Screen registry ───────────────────────────────────────────
@@ -43,16 +43,12 @@ class _MainShellState extends ConsumerState<MainShell> {
     final navItems = rawNav.isEmpty
         ? _defaultNav(flags)
         : rawNav
-            .where((n) => _shouldShow(n.id, flags))
-            .map((n) => (icon: n.icon, label: n.id))
-            .toList();
+        .where((n) => _shouldShow(n.id, flags))
+        .map((n) => (icon: n.icon, label: n.id))
+        .toList();
 
     // Clamp index to valid range
     final safeIdx = _idx.clamp(0, navItems.length - 1);
-    final activeId = navItems[safeIdx].icon == '' ? 'home' : navItems[safeIdx].label;
-
-    // Look up the screen for the active nav item id
-    final screen = _screenMap[activeId] ?? const HomeScreen();
 
     return Scaffold(
       backgroundColor: MC.bgDeep,

@@ -154,7 +154,7 @@ class BackgroundSync {
       final conn = await Connectivity().checkConnectivity();
       if (conn == ConnectivityResult.none) return;
       if (LocalDatabase.wifiOnlySync &&
-          !conn == ConnectivityResult.wifi) return;
+          conn != ConnectivityResult.wifi) return;
       await ArAssetCacheManager().downloadFile(url);
     } catch (_) {}
   }

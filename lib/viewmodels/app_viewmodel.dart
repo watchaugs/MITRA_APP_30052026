@@ -83,14 +83,14 @@ class AppNotifier extends Notifier<AppState> {
     if (profileResult is ApiOk<StudentProfile>) {
       state = state.copyWith(profile: profileResult.data);
     } else if (profileResult is ApiErr) {
-      debugPrint('Profile error: ${(profileResult as ApiErr).msg}');
+      debugPrint('Profile error: ${profileResult.msg}');
     }
   }
 
   // ── Auth ──────────────────────────────────────────────────
   Future<String?> requestOtp(String phone, String role) async {
     final result = await ref.read(apiServiceProvider).requestOtp(phone, role);
-    if (result is ApiErr) return (result as ApiErr).msg;
+    if (result is ApiErr) return result.msg;
     return null;
   }
 
@@ -102,7 +102,7 @@ class AppNotifier extends Notifier<AppState> {
     final result = await ref.read(apiServiceProvider).verifyOtp(
       phone: phone, otp: otp, role: role,
     );
-    if (result is ApiErr) return (result as ApiErr).msg;
+    if (result is ApiErr) return result.msg;
     final data       = (result as ApiOk<Map<String, dynamic>>).data;
     final isNewUser  = data['is_new_user'] as bool? ?? true;
     final needConsent = state.config?.features.isParentalConsentRequired ?? true;
@@ -124,7 +124,7 @@ class AppNotifier extends Notifier<AppState> {
   Future<String?> submitParentalConsent(String parentPhone, String otp) async {
     final result = await ref.read(apiServiceProvider)
         .submitParentalConsent(parentPhone: parentPhone, otp: otp);
-    if (result is ApiErr) return (result as ApiErr).msg;
+    if (result is ApiErr) return result.msg;
     state = state.copyWith(authStatus: AuthStatus.needsSetup);
     return null;
   }
@@ -142,7 +142,7 @@ class AppNotifier extends Notifier<AppState> {
       name: name, avatar: avatar, classGrade: classGrade,
       stateCode: stateCode, schoolName: schoolName, district: district,
     );
-    if (result is ApiErr) return (result as ApiErr).msg;
+    if (result is ApiErr) return result.msg;
     final profile = (result as ApiOk<StudentProfile>).data;
     await LocalDatabase.saveProfile(profile.toJson());
     state = state.copyWith(profile: profile, authStatus: AuthStatus.ready);

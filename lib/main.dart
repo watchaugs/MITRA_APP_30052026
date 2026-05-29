@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mitra_student/l10n/generated/app_localizations.dart';
 
 import 'theme.dart';
 import 'utils/router.dart';
@@ -51,18 +50,17 @@ class MitraApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router   = ref.watch(routerProvider);
     final appState = ref.watch(appProvider);
-    final settings = ref.watch(settingsProvider);
 
     // ── Dynamic theme (from AppConfig branding JSON) ──────────
     final branding = appState.config?.branding;
     final theme    = buildDynamicTheme(
-      dark:          settings.isDark,
+      dark:          appState.isDark,
       primaryHex:    branding?.primaryColor,
       secondaryHex:  branding?.secondaryColor,
     );
 
     // ── Locale from stored language preference ─────────────────
-    final locale = Locale(settings.language);
+    final locale = Locale(appState.language);
 
     return MaterialApp.router(
       title:            branding?.appName ?? 'MITRA',
@@ -73,7 +71,6 @@ class MitraApp extends ConsumerWidget {
       // ── i18n ────────────────────────────────────────────────
       locale:             locale,
       localizationsDelegates: const [
-        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

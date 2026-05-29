@@ -97,7 +97,7 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
               child: Row(children: [
                 _StepDot(active: _step == 0, done: _step > 0, label: '1'),
                 Expanded(child: Divider(
-                  color: _step > 0 ? MC.saffron : MC.border)),
+                    color: _step > 0 ? MC.saffron : MC.border)),
                 _StepDot(active: _step == 1, done: false, label: '2'),
               ]),
             ),
@@ -107,35 +107,35 @@ class _SetupScreenState extends ConsumerState<SetupScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: _step == 0
                     ? _StateStep(
-                        selectedCode: _stateCode,
-                        selectedName: _stateName,
-                        detecting:   _detecting,
-                        error:       _error,
-                        onDetect:    _autoDetectState,
-                        onSelect:    (code, name) {
-                          setState(() { _stateCode = code; _stateName = name; _error = null; });
-                          ref.read(appProvider.notifier).selectState(code);
-                        },
-                        onNext: () {
-                          if (_stateCode == null) {
-                            setState(() => _error = 'Please select your state');
-                          } else {
-                            setState(() { _step = 1; _error = null; });
-                          }
-                        },
-                      )
+                  selectedCode: _stateCode,
+                  selectedName: _stateName,
+                  detecting:   _detecting,
+                  error:       _error,
+                  onDetect:    _autoDetectState,
+                  onSelect:    (code, name) {
+                    setState(() { _stateCode = code; _stateName = name; _error = null; });
+                    ref.read(appProvider.notifier).selectState(code);
+                  },
+                  onNext: () {
+                    if (_stateCode == null) {
+                      setState(() => _error = 'Please select your state');
+                    } else {
+                      setState(() { _step = 1; _error = null; });
+                    }
+                  },
+                )
                     : _ProfileStep(
-                        nameController: _nameCtrl,
-                        schoolController: _schoolCtrl,
-                        avatar:      _avatar,
-                        classGrade:  _classGrade,
-                        loading:     _loading,
-                        error:       _error,
-                        onAvatarChanged: (a) => setState(() => _avatar = a),
-                        onClassChanged:  (c) => setState(() => _classGrade = c),
-                        onBack:  () => setState(() => _step = 0),
-                        onSubmit: _submit,
-                      ),
+                  nameController: _nameCtrl,
+                  schoolController: _schoolCtrl,
+                  avatar:      _avatar,
+                  classGrade:  _classGrade,
+                  loading:     _loading,
+                  error:       _error,
+                  onAvatarChanged: (a) => setState(() => _avatar = a),
+                  onClassChanged:  (c) => setState(() => _classGrade = c),
+                  onBack:  () => setState(() => _step = 0),
+                  onSubmit: _submit,
+                ),
               ),
             ),
           ],
@@ -163,7 +163,7 @@ class _StepDot extends StatelessWidget {
         child: done
             ? const Icon(Icons.check, color: Colors.white, size: 16)
             : Text(label, style: MT.body(12, weight: FontWeight.w700,
-                color: active ? MC.saffron : MC.textMuted)),
+            color: active ? MC.saffron : MC.textMuted)),
       ),
     );
   }
@@ -219,7 +219,7 @@ class _StateStep extends StatelessWidget {
               )),
               if (detecting)
                 const SizedBox(width: 20, height: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2, color: MC.saffron))
+                    child: CircularProgressIndicator(strokeWidth: 2, color: MC.saffron))
               else
                 const Icon(Icons.chevron_right, color: MC.textMuted),
             ]),
@@ -262,9 +262,9 @@ class _StateStep extends StatelessWidget {
                   Text(s.flag, style: const TextStyle(fontSize: 16)),
                   const SizedBox(width: 8),
                   Expanded(child: Text(s.name, style: MT.body(12,
-                    weight: sel ? FontWeight.w600 : FontWeight.w400,
-                    color:  sel ? MC.saffron : MC.textPrimary),
-                    maxLines: 1, overflow: TextOverflow.ellipsis)),
+                      weight: sel ? FontWeight.w600 : FontWeight.w400,
+                      color:  sel ? MC.saffron : MC.textPrimary),
+                      maxLines: 1, overflow: TextOverflow.ellipsis)),
                 ]),
               ),
             );
@@ -318,7 +318,7 @@ class _ProfileStep extends StatelessWidget {
         Text('Almost There!', style: MT.display(24, weight: FontWeight.w800)),
         const SizedBox(height: 8),
         Text('Tell us a bit about yourself to personalize your learning.',
-          style: MT.body(15, color: MC.textSecondary)),
+            style: MT.body(15, color: MC.textSecondary)),
         const SizedBox(height: 32),
 
         // Avatar picker
@@ -374,7 +374,7 @@ class _ProfileStep extends StatelessWidget {
                   border:       Border.all(color: sel ? MC.saffron : MC.border),
                 ),
                 child: Center(child: Text('$grade', style: MT.body(14,
-                  weight: FontWeight.w700, color: sel ? Colors.white : MC.textPrimary))),
+                    weight: FontWeight.w700, color: sel ? Colors.white : MC.textPrimary))),
               ),
             );
           }),
