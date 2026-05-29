@@ -1,0 +1,13 @@
+// android/app/build.gradle
+// Add this to your existing build.gradle inside android block:
+// minSdkVersion 21  (required for flutter_secure_storage, workmanager)
+// compileSdkVersion 34
+// targetSdkVersion 34
+
+android {
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 34
+        multiDexEnabled true
+    }
+}
